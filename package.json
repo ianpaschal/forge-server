@@ -1,0 +1,50 @@
+{
+  "name": "forge-server",
+  "version": "0.0.1",
+  "description": "A real-time-strategy ECS sandbox, now in server form.",
+  "main": "./src/main.js",
+  "dependencies": {
+    "deepmerge": "^2.1.0",
+    "express": "^4.16.3",
+    "socket.io": "^2.1.0",
+    "three": "^0.90.0",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "css-loader": "^0.25.0",
+    "eslint": "^4.17.0",
+    "eslint-plugin-import": "^2.9.0",
+    "file-loader": "^0.9.0",
+    "grunt": "^1.0.2",
+    "grunt-eslint": "^20.1.0",
+    "grunt-jsdoc": "^2.2.1",
+    "grunt-webpack": "^3.0.2",
+    "jsdoc": "^3.5.5",
+    "load-grunt-tasks": "^3.5.2",
+    "minami": "^1.2.3",
+    "webpack": "^2.7.0"
+  },
+  "scripts": {
+    "test": "."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ianpaschal/forge-server.git"
+  },
+  "keywords": [
+    "entity-component-system",
+    "game-engine",
+    "javascript",
+    "node",
+    "nodejs",
+    "real-time-strategy",
+    "rts"
+  ],
+  "author": "Ian Paschal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ianpaschal/forge-server/issues"
+  },
+  "homepage": "https://github.com/ianpaschal/forge-server#readme"
+}
