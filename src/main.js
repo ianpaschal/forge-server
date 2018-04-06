@@ -27,15 +27,17 @@ const engine = {
 		// Start the world:
 		console.log( "Ready to play! Starting world." );
 		engine.running = true;
+		setInterval( () => {
+			io.sockets.emit( "message", "hi!" );
+			console.log( "Hi!" );
+		}, 1000 );
 	},
 	stop() {
 		engine.running = false;
 	}
 };
 
-setInterval( () => {
-	io.sockets.emit( "message", "hi!" );
-}, 1000 );
+engine.start();
 
 io.sockets.on( "connection", ( socket ) => {
 
