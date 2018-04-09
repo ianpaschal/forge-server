@@ -1,13 +1,16 @@
 // Forge Server is distributed under the MIT license.
 
-const express = require( "express" );
-const http = require( "http" );
-const socketIO = require( "socket.io" );
+import Aurora from "aurora";
+import Express from "express";
+import HTTP from "http";
+import Path from "path";
+import SocketIO from "socket.io";
 
 // Set up:
-const app = express();
-const server = http.Server( app );
-const io = socketIO( server );
+const engine = new Aurora.Engine();
+const app = Express();
+const server = HTTP.Server( app );
+const io = SocketIO( server );
 
 // Config
 const config = {
@@ -16,28 +19,48 @@ const config = {
 };
 const playerSockets = [];
 
+engine.registerPluginLocation( Path.join( "./", "plugins" ) );
+engine.init(
+	false,
+	false,
+	() => {
+		console.log( "Loaded a bit." );
+	},
+	() => {
+		engine.start();
+	}
+);
+
+/* Aurora will call the onUpdate handler after every update. This the point
+	where we send the last two computed states to clients. */
+engine.onUpdateEnd = function() {
+	if ( engine.getNumStates() >= 2 ) {
+		io.sockets.emit( "state", engine.getLastStates( 2 ) );
+	}
+};
+
+/*
 const engine = {
-	"running": false,
+	running: false,
 	start() {
 		// Start listening for connections:
 		server.listen( config.port, () => {
-			console.log( "Starting server on port 5000" );
+			console.log( "Starting server on port " + config.port + "..." );
 		});
 
 		// Start the world:
 		console.log( "Ready to play! Starting world." );
 		engine.running = true;
 		setInterval( () => {
-			io.sockets.emit( "message", "hi!" );
-			console.log( "Hi!" );
+
 		}, 1000 );
 	},
 	stop() {
 		engine.running = false;
-	}
+	},
+	states: []
 };
-
-engine.start();
+*/
 
 io.sockets.on( "connection", ( socket ) => {
 
@@ -57,3 +80,6 @@ io.sockets.on( "connection", ( socket ) => {
 		}
 	});
 });
+
+// Here we go!
+engine.start();
