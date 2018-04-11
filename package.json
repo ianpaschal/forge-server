@@ -4,11 +4,13 @@
   "description": "A real-time-strategy ECS sandbox, now in server form.",
   "main": "./src/main.js",
   "dependencies": {
+    "console-stamp": "^0.2.6",
     "deepmerge": "^2.1.0",
     "express": "^4.16.3",
     "socket.io": "^2.1.0",
     "three": "^0.90.0",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "uws": "^9.14.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
@@ -26,7 +28,10 @@
     "webpack": "^2.7.0"
   },
   "scripts": {
-    "start": "node src/main.js"
+    "start": "node dist/bundle.server.js",
+    "dev": "webpack -d",
+    "dist": "webpack",
+    "docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose"
   },
   "repository": {
     "type": "git",

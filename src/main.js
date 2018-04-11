@@ -1,16 +1,20 @@
 // Forge Server is distributed under the MIT license.
+require( "console-stamp" )( console, "HH:MM:ss.l" );
 
 import Aurora from "aurora";
-import Express from "express";
 import HTTP from "http";
 import Path from "path";
 import SocketIO from "socket.io";
 
 // Set up:
 const engine = new Aurora.Engine();
-const app = Express();
-const server = HTTP.Server( app );
-const io = SocketIO( server );
+const server = HTTP.createServer();
+
+// Use some set up options so we can still bundle with Webpack:
+const io = SocketIO( server, {
+	serveClient: false,
+	wsEngine: "ws"
+});
 
 // Config
 const config = {
@@ -39,28 +43,9 @@ engine.onUpdateEnd = function() {
 	}
 };
 
-/*
-const engine = {
-	running: false,
-	start() {
-		// Start listening for connections:
-		server.listen( config.port, () => {
-			console.log( "Starting server on port " + config.port + "..." );
-		});
-
-		// Start the world:
-		console.log( "Ready to play! Starting world." );
-		engine.running = true;
-		setInterval( () => {
-
-		}, 1000 );
-	},
-	stop() {
-		engine.running = false;
-	},
-	states: []
-};
-*/
+server.listen( config.port, () => {
+	console.log( "Listening for connections on port " + config.port + "…" );
+});
 
 io.sockets.on( "connection", ( socket ) => {
 
