@@ -1,0 +1,64 @@
+{
+  "type": "nature-rock-granite",
+  "name": "Rock",
+  "components": [
+    {
+      "type": "geometry",
+      "data": [
+        "nature-rock-granite-a",
+        "nature-rock-granite-b",
+        "nature-rock-granite-c",
+        "nature-rock-granite-d",
+        "nature-rock-granite-e",
+        "nature-rock-granite-f",
+        "nature-rock-granite-g",
+        "nature-rock-granite-h"
+      ]
+    },
+    {
+      "type": "movement",
+      "data": {
+        "onLand": true,
+        "onWater": false,
+        "speed": 1.4
+      }
+    },
+    {
+      "type": "material",
+      "data": [
+        "nature-rock-granite"
+      ]
+    },
+    {
+      "type": "player",
+      "data": {
+        "index": 0
+      }
+    },
+    {
+      "type": "position",
+      "data": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "type": "rotation",
+      "data": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "type": "resource",
+      "data": {
+        "stone": {
+          "current": 150,
+          "maximum": 150
+        }
+      }
+    }
+  ]
+}

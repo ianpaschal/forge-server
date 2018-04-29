@@ -1,0 +1,101 @@
+{
+  "type": "greek-settlement-age-0",
+  "name": "Settlement",
+  "components": [
+    {
+      "type": "attack",
+      "data": {
+        "accuracy": 0.2,
+        "ranged": true,
+        "strength": 12
+      }
+    },
+    {
+      "type": "defense",
+      "data": {
+        "slash": 0.44,
+        "pierce": 0.95
+      }
+    },
+    {
+      "type": "evolution",
+      "data": {
+        "assembly": "greek-settlement-age-1",
+        "trigger": "age-advance-classical"
+      }
+    },
+    {
+      "type": "garrison",
+      "data": {
+        "current": 0,
+        "maximum": 25
+      }
+    },
+    {
+      "type": "health",
+      "data": {
+        "current": 2800,
+        "maximum": 2800
+      }
+    },
+    {
+      "type": "icon",
+      "data": [
+        "generic-settlement"
+      ]
+    },
+    {
+      "type": "geometry",
+      "data": [
+        "greek-settlement-age-0"
+      ]
+    },
+    {
+      "type": "material",
+      "data": [
+        "generic-building-attachments",
+        "greek-building-walls-age-0",
+        "greek-building-fences"
+      ]
+    },
+    {
+      "type": "player",
+      "data": {
+        "index": "auto"
+      }
+    },
+    {
+      "type": "position",
+      "data": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "type": "production",
+      "data": {
+        "availible": [
+          "greek-villager-female",
+          "greek-villager-male"
+        ],
+        "queue": [],
+        "spawn": null
+      }
+    },
+    {
+      "type": "rotation",
+      "data": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "type": "visibility",
+      "data": {
+        "distance": 40
+      }
+    }
+  ]
+}

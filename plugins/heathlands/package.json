@@ -1,0 +1,27 @@
+{
+  "name": "healthlands",
+  "title": "Heathlands Nature Pack",
+  "version": "1.0.0",
+  "contents": [
+    {
+      "name": "settlement-age-0",
+      "path": "assembly/settlement-age-0.json",
+      "type": "assembly"
+    },
+    {
+      "name": "villager-male",
+      "path": "assembly/villager-male.json",
+      "type": "assembly"
+    },
+    {
+      "name": "berry-bush",
+      "path": "assembly/berry-bush.json",
+      "type": "assembly"
+    },
+    {
+      "name": "rock-granite",
+      "path": "assembly/rock-granite.json",
+      "type": "assembly"
+    }
+  ]
+}

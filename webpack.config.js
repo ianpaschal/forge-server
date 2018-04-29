@@ -5,11 +5,10 @@ module.exports = {
 		__dirname: true,
 		__filename: true,
 	},
-	entry: "./src/main.js",
+	entry: "./src/server.js",
 	output: {
 		path: __dirname + "/dist/",
-		publicPath: "dist/",
-		filename: "bundle.server.js"
+		filename: "server.bundle.js"
 	},
 	devtool: "eval-source-map",
 	module: {

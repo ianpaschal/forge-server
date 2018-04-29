@@ -1,0 +1,49 @@
+{
+  "type": "nature-berry-bush",
+  "name": "Berry Bush",
+  "components": [
+    {
+      "type": "geometry",
+      "data": [
+        "nature-berry-bush"
+      ]
+    },
+    {
+      "type": "material",
+      "data": [
+        "nature-berry-bush"
+      ]
+    },
+    {
+      "type": "player",
+      "data": {
+        "index": 0
+      }
+    },
+    {
+      "type": "position",
+      "data": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "type": "rotation",
+      "data": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "type": "resource",
+      "data": {
+        "food": {
+          "current": 100,
+          "maximum": 100
+        }
+      }
+    }
+  ]
+}

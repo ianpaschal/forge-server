@@ -1,0 +1,72 @@
+{
+  "type": "greek-villager-male",
+  "name": "Villager",
+  "components": [
+    {
+      "type": "animation",
+      "data": [
+        {
+          "name": "idle",
+          "duration": 2000
+        },
+        {
+          "name": "harvest",
+          "duration": 3000
+        },
+        {
+          "name": "walk",
+          "duration": 2000
+        }
+      ]
+    },
+    {
+      "type": "geometry",
+      "data": [
+        "greek-villager-male"
+      ]
+    },
+    {
+      "type": "material",
+      "data": [
+        "greek-villager-male-head",
+        "greek-villager-male-body"
+      ]
+    },
+    {
+      "type": "movement",
+      "data": {
+        "onLand": true,
+        "onWater": false,
+        "speed": 1.6
+      }
+    },
+    {
+      "type": "player",
+      "data": {
+        "index": 0
+      }
+    },
+    {
+      "type": "position",
+      "data": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "type": "rotation",
+      "data": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "type": "visibility",
+      "data": {
+        "distance": 24
+      }
+    }
+  ]
+}
