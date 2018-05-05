@@ -29,10 +29,10 @@
     "webpack": "^2.7.0"
   },
   "scripts": {
-    "start": "node dist/server.bundle.js",
-    "webpack-dev": "webpack -d",
-    "webpack-prod": "webpack -p",
-    "docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose"
+    "docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
+    "lint": "eslint --fix",
+    "pack:dev": "NODE_ENV=development webpack --config webpack/dev.config.js",
+    "pack:prod": "NODE_ENV=production webpack --config webpack/prod.config.js"
   },
   "repository": {
     "type": "git",

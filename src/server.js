@@ -20,6 +20,7 @@ const io = SocketIO( server, {
 });
 
 // Config
+// TODO: Move to an external .json file
 const config = {
 	"pause-on-player-drop": false,
 	"port": 5000,
@@ -99,7 +100,7 @@ io.on( "connection", ( socket ) => {
 	// Generate test entities:
 	const entity = new Aurora.Entity();
 	player.own( entity );
-	entity.copy( engine.getAssembly( "greek-settlement-age-0" ) );
+	entity.copy( engine.getAssembly( "settlement-age-0" ) );
 	entity.getComponent( "player" ).apply({
 		index: engine._players.indexOf( player )
 	});
@@ -109,9 +110,9 @@ io.on( "connection", ( socket ) => {
 	});
 	entity.getComponent( "production" ).apply({
 		queue: [
-			{ "type": "greek-villager-male", "progress": 100 },
-			{ "type": "greek-villager-male", "progress": 100 },
-			{ "type": "greek-villager-male", "progress": 100 }
+			{ "type": "villager-male", "progress": 100 },
+			{ "type": "villager-male", "progress": 100 },
+			{ "type": "villager-male", "progress": 100 }
 		]
 	});
 	engine.registerEntity( entity );
