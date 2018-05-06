@@ -5,7 +5,7 @@ node_js:
 before_install:
   # Clone the repository if isn't cloned
   - "mkdir node_modules"
-  - "git clone git@github.com:ianpaschal/aurora.git node_modules/aurora"
+  - "git clone https://github.com/ianpascha/aurora.git node_modules/aurora"
   - "cd node_modules/aurora"
   # Reset the repo so we can have a conflict-less pull
   - "git reset --hard"
