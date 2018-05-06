@@ -5,15 +5,19 @@ before_install:
 - mkdir node_modules
 - git config credential.helper "store --file=.git/credentials"
 - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
-- git clone https://github.com/ianpaschal/aurora.git node_modules/aurora
-- cd node_modules/aurora
+- cd ..
+- git clone https://github.com/ianpaschal/aurora.git aurora
+- cd aurora
 - git reset --hard
 - git clean -f
 - git pull
 - npm install
-- cd ..
+- npm link
+- cd ../forge-server
+
 install:
 - npm install
+- npm link aurora
 script:
 - npm run lint
 - npm run pack:prod
