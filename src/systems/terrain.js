@@ -1,10 +1,10 @@
-// Aurora is distributed under the MIT license.
+// Forge Server is distributed under the MIT license.
 
 import * as Three from "three";
 import SimplexNoise from "simplex-noise";
-import { System } from "aurora";
+import Aurora from "aurora";
 
-export default new System({
+export default new Aurora.System({
 	name: "terrain",
 	fixed: false,
 	componentTypes: [],

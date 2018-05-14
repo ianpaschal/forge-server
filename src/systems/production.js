@@ -1,8 +1,8 @@
-// Aurora is distributed under the MIT license.
+// Forge Server is distributed under the MIT license.
 
-import { Entity, System } from "aurora";
+import Aurora from "aurora";
 
-export default new System({
+export default new Aurora.System({
 	name: "production",
 	fixed: true,
 	step: 100,
@@ -29,7 +29,7 @@ export default new System({
 
 				// If complete:
 				if ( item.progress >= 100 ) {
-					const fresh = new Entity();
+					const fresh = new Aurora.Entity();
 					player.own( fresh );
 					fresh.copy( this._engine.getAssembly( item.type ) );
 					fresh.getComponent( "player" ).apply({
