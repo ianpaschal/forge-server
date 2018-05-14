@@ -6,6 +6,9 @@ import Path from "path";
 import SocketIO from "socket.io";
 import UUID from "uuid/v4";
 import ConsoleStamp from "console-stamp";
+import terrainSystem from "./systems/terrain.js";
+import productionSystem from "./systems/production.js";
+import movementSystem from "./systems/movement.js";
 
 ConsoleStamp( console, "yyyy-mm-dd HH:MM:ss" );
 
@@ -54,7 +57,10 @@ engine.loadAssets(
 		// engine.generateWorld( () => {}, () => {
 		// 	engine.launch();
 		//
-		engine.launch();
+		engine.registerSystem( terrainSystem );
+		engine.registerSystem( productionSystem );
+		engine.registerSystem( movementSystem );
+		engine.start();
 		server.listen( config.port, () => {
 			console.log( "Listening for connections on port " + config.port + "…" );
 		});
@@ -68,6 +74,7 @@ engine.setOnUpdateStart( () => {
 
 /* Send the last two computed states to clients. */
 engine.setOnUpdateEnd( () => {
+	engine.addState();
 	if ( engine.getNumStates() >= 2 ) {
 		io.sockets.emit( "state", engine.getLastStates( 2 ) );
 	}
