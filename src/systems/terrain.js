@@ -2,7 +2,7 @@
 
 import * as Three from "three";
 import SimplexNoise from "simplex-noise";
-import System from "../core/System";
+import { System } from "aurora";
 
 export default new System({
 	name: "terrain",

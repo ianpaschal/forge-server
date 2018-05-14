@@ -1,7 +1,6 @@
 // Aurora is distributed under the MIT license.
 
-import System from "../core/System";
-import Entity from "../core/Entity";
+import { Entity, System } from "aurora";
 
 export default new System({
 	name: "production",

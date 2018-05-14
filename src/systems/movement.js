@@ -1,7 +1,6 @@
 // Aurora is distributed under the MIT license.
 
-import System from "../core/System";
-import Math2D from "../math/Math2D";
+import { System, Math2D } from "aurora";
 
 export default new System({
 	name: "movement",

@@ -6,9 +6,9 @@ import Path from "path";
 import SocketIO from "socket.io";
 import UUID from "uuid/v4";
 import ConsoleStamp from "console-stamp";
-import terrainSystem from "./systems/terrain.js";
-import productionSystem from "./systems/production.js";
-import movementSystem from "./systems/movement.js";
+import terrainSystem from "./systems/terrain";
+import productionSystem from "./systems/production";
+import movementSystem from "./systems/movement";
 
 ConsoleStamp( console, "yyyy-mm-dd HH:MM:ss" );
 
