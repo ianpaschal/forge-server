@@ -1,10 +1,9 @@
 // Forge Server is distributed under the MIT license.
 
-import Aurora from "aurora";
+import { Engine, Entity, Player } from "aurora";
 import HTTP from "http";
 import Path from "path";
 import SocketIO from "socket.io";
-import UUID from "uuid/v4";
 import ConsoleStamp from "console-stamp";
 import terrainSystem from "./systems/terrain";
 import productionSystem from "./systems/production";
@@ -13,8 +12,9 @@ import movementSystem from "./systems/movement";
 ConsoleStamp( console, "yyyy-mm-dd HH:MM:ss" );
 
 // Set up:
-const engine = new Aurora.Engine();
+const engine = new Engine();
 const server = HTTP.createServer();
+const stdin = process.openStdin();
 
 // Use some set up options so we can still bundle with Webpack:
 const io = SocketIO( server, {
@@ -29,8 +29,6 @@ const config = {
 	"port": 5000,
 	"plugin-stack": [ "heathlands" ]
 };
-
-const uuid = UUID();
 
 /* Player sockets are not the same as player IDs. Each time a given player joins
 	they will have a different socket. */
@@ -101,11 +99,11 @@ io.on( "connection", ( socket ) => {
 			"metal": 100
 		}
 	};
-	const player = new Aurora.Player( data );
+	const player = new Player( data );
 	engine.registerPlayer( player );
 
 	// Generate test entities:
-	const entity = new Aurora.Entity();
+	const entity = new Entity();
 	player.own( entity );
 	entity.copy( engine.getAssembly( "settlement-age-0" ) );
 	entity.getComponent( "player" ).apply({
@@ -160,4 +158,24 @@ io.on( "connection", ( socket ) => {
 	socket.on( "disconnect", handlers.disconnect );
 	socket.on( "message", handlers.message );
 	socket.on( "register", handlers.register );
+});
+
+const commands = {
+	save: function() {
+		console.log( "Saving world..." );
+	},
+	stop: function() {
+		engine.stop();
+		console.log( "Saving world..." );
+		console.log( "Shutting down..." );
+		process.exit();
+	}
+};
+stdin.on( "data", ( chunk ) => {
+	const input = chunk.toString( "utf8" ).trim();
+	if ( !commands[ input ] ) {
+		console.error( "Could not find command '" + input + "'!" );
+		return;
+	}
+	commands[ input ]();
 });

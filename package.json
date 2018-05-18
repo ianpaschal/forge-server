@@ -2,7 +2,7 @@
   "name": "forge-server",
   "version": "0.0.1",
   "description": "A real-time-strategy ECS sandbox, now in server form.",
-  "main": "./dist/server.bundle.js",
+  "main": "./dist/server.bundle.min.js",
   "dependencies": {
     "console-stamp": "^0.2.6",
     "deepmerge": "^2.1.0",
@@ -27,15 +27,19 @@
     "jsdoc": "^3.5.5",
     "load-grunt-tasks": "^3.5.2",
     "minami": "^1.2.3",
+    "pkg": "^4.3.1",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^2.7.0",
     "webpack-merge": "^4.1.2"
   },
   "scripts": {
+    "prestart": "NODE_ENV=development webpack --config webpack/dev.config.js",
+    "start": "node ./dist/server.bundle.js",
     "docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
     "lint": "eslint --fix",
     "pack:dev": "NODE_ENV=development webpack --config webpack/dev.config.js",
-    "pack:prod": "NODE_ENV=production webpack --config webpack/prod.config.js"
+    "pack:prod": "NODE_ENV=production webpack --config webpack/prod.config.js",
+    "dist": "./dist/server.bundle.js --out-path ./bin"
   },
   "repository": {
     "type": "git",

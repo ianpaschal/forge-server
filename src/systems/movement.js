@@ -1,8 +1,8 @@
 // Forge Server is distributed under the MIT license.
 
-import Aurora from "aurora";
+import { Math2D, System } from "aurora";
 
-export default new Aurora.System({
+export default new System({
 	name: "movement",
 	fixed: false,
 	componentTypes: [
@@ -26,9 +26,9 @@ export default new Aurora.System({
 
 				const position = entity.getData( "position" );
 				const target = currentTask.target;
-				const heading = Aurora.Math2D.heading( position, target );
+				const heading = Math2D.heading( position, target );
 				const distance = entity.getData( "movement" ).speed * ( time / 1000 );
-				const distanceToGo = Aurora.Math2D.distance( position, target );
+				const distanceToGo = Math2D.distance( position, target );
 
 				// Apply old position plus computed offset to position:
 				entity.getComponent( "position" ).apply({
