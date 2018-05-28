@@ -31,7 +31,7 @@ export default new System({
 				if ( item.progress >= 100 ) {
 					const fresh = new Entity();
 					player.own( fresh );
-					fresh.copy( this._engine.getAssembly( item.type ) );
+					fresh.copy( this._engine.getAsset( "assembly", item.type ) );
 					fresh.getComponent( "player" ).apply({
 						index: playerIndex
 					});

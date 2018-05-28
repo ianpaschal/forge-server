@@ -1,18 +1,20 @@
-// Forge Server is distributed under the MIT license.
+// Forge Server source code is distributed under the MIT license.
 
-import { Engine, Entity, Player } from "aurora";
+import { Entity, Player, State } from "aurora";
 import HTTP from "http";
 import Path from "path";
 import SocketIO from "socket.io";
 import ConsoleStamp from "console-stamp";
+import engine from "./engine";
 import terrainSystem from "./systems/terrain";
 import productionSystem from "./systems/production";
 import movementSystem from "./systems/movement";
+import * as commands from "./commands";
 
 ConsoleStamp( console, "yyyy-mm-dd HH:MM:ss" );
 
 // Set up:
-const engine = new Engine();
+// const engine = new Engine();
 const server = HTTP.createServer();
 const stdin = process.openStdin();
 
@@ -40,43 +42,42 @@ const playerHashes = [
 	}
 ];
 
-engine.registerPluginLocation( Path.resolve( "./plugins" ) );
-engine.setPluginStack( config[ "plugin-stack" ] );
-
-const loadStack = engine.findPlugins();
-engine.loadAssets(
-	loadStack,
-	( name ) => {
-		console.log( "Loaded " + name + "." );
-	},
-	() => {
-		// TODO: Check if world exists;
-		// engine.loadWorld();
-		// engine.generateWorld( () => {}, () => {
-		// 	engine.launch();
-		//
-		engine.registerSystem( terrainSystem );
-		engine.registerSystem( productionSystem );
-		engine.registerSystem( movementSystem );
-		engine.start();
-		server.listen( config.port, () => {
-			console.log( "Listening for connections on port " + config.port + "…" );
-		});
-	}
-);
-
-/* Apply all saved user input for the tick before performing the update. */
-engine.setOnUpdateStart( () => {
-	// console.log( "derp" );
-});
-
-/* Send the last two computed states to clients. */
-engine.setOnUpdateEnd( () => {
-	engine.addState();
-	if ( engine.getNumStates() >= 2 ) {
-		io.sockets.emit( "state", engine.getLastStates( 2 ) );
-	}
-});
+// engine.pluginManager.addLocation( Path.resolve( "./plugins" ) );
+// engine.pluginManager.pluginStack = config[ "plugin-stack" ];
+//
+// engine.loadAssets(
+// 	engine.pluginManager.stack,
+// 	( name ) => {
+// 		console.log( "Loaded " + name + "." );
+// 	},
+// 	() => {
+// 		// TODO: Check if world exists;
+// 		// engine.loadWorld();
+// 		// engine.generateWorld( () => {}, () => {
+// 		// 	engine.launch();
+// 		//
+// 		engine.registerSystem( terrainSystem );
+// 		engine.registerSystem( productionSystem );
+// 		engine.registerSystem( movementSystem );
+// 		engine.start();
+// 		server.listen( config.port, () => {
+// 			console.log( "Listening for connections on port " + config.port + "…" );
+// 		});
+// 	}
+// );
+//
+// /* Apply all saved user input for the tick before performing the update. */
+// engine.onUpdateStart = function() {
+// 	// console.log( "derp" );
+// };
+//
+// /* Send the last two computed states to clients. */
+// engine.onUpdateFinished = function() {
+// 	engine.stateManager.addState( new State( engine ) );
+// 	if ( engine.stateManager.numStates > 0 ) {
+// 		io.sockets.emit( "state", engine.stateManager.newestState );
+// 	}
+// };
 
 // io.sockets.on( "connection", ( socket ) => {
 io.on( "connection", ( socket ) => {
@@ -84,7 +85,7 @@ io.on( "connection", ( socket ) => {
 	// Register the socket:
 	playerSockets.push( socket );
 	console.log( "Socket " + socket.id + " created." );
-	socket.emit( "loadStack", loadStack );
+	socket.emit( "loadStack", engine.pluginManager.stack );
 	const data = {
 		"name": "Ian",
 		"color": "#0000ff",
@@ -105,7 +106,7 @@ io.on( "connection", ( socket ) => {
 	// Generate test entities:
 	const entity = new Entity();
 	player.own( entity );
-	entity.copy( engine.getAssembly( "settlement-age-0" ) );
+	entity.copy( engine.getAsset( "assembly", "settlement-age-0" ) );
 	entity.getComponent( "player" ).apply({
 		index: engine._players.indexOf( player )
 	});
@@ -160,17 +161,6 @@ io.on( "connection", ( socket ) => {
 	socket.on( "register", handlers.register );
 });
 
-const commands = {
-	save: function() {
-		console.log( "Saving world..." );
-	},
-	stop: function() {
-		engine.stop();
-		console.log( "Saving world..." );
-		console.log( "Shutting down..." );
-		process.exit();
-	}
-};
 stdin.on( "data", ( chunk ) => {
 	const input = chunk.toString( "utf8" ).trim();
 	if ( !commands[ input ] ) {
@@ -179,3 +169,39 @@ stdin.on( "data", ( chunk ) => {
 	}
 	commands[ input ]();
 });
+
+engine.pluginManager.pluginStack = config[ "plugin-stack" ];
+
+engine.loadAssets(
+	engine.pluginManager.stack,
+	( name ) => {
+		console.log( "Loaded " + name + "." );
+	},
+	() => {
+		// TODO: Check if world exists;
+		// engine.loadWorld();
+		// engine.generateWorld( () => {}, () => {
+		// 	engine.launch();
+		//
+		engine.registerSystem( terrainSystem );
+		engine.registerSystem( productionSystem );
+		engine.registerSystem( movementSystem );
+		engine.start();
+		server.listen( config.port, () => {
+			console.log( "Listening for connections on port " + config.port + "…" );
+		});
+	}
+);
+
+/* Apply all saved user input for the tick before performing the update. */
+engine.onUpdateStart = function() {
+	// console.log( "derp" );
+};
+
+/* Send the last two computed states to clients. */
+engine.onUpdateFinished = function() {
+	engine.stateManager.addState( new State( engine ) );
+	if ( engine.stateManager.numStates > 0 ) {
+		io.sockets.emit( "state", engine.stateManager.newestState );
+	}
+};

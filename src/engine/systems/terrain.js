@@ -10,7 +10,7 @@ export default new System({
 	componentTypes: [],
 	init() {
 		// Create an easier reference to the global scene:
-		this._scene = this._engine.getScene();
+		this._scene = this._engine.scene;
 		/*
 		const groundTexture = this._engine._textures[ "nature-grass-75-dirt-25" ];
 		groundTexture.wrapS = Three.RepeatWrapping;

@@ -6,5 +6,6 @@ module.exports = merge( baseConfig, {
 	output: {
 		path: Path.resolve( __dirname, "../dist/" ),
 		filename: "server.bundle.js"
-	}
+	},
+	devtool: "source-map"
 });

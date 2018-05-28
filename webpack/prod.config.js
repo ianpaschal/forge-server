@@ -11,7 +11,7 @@ module.exports = merge( baseConfig, {
 	plugins: [
 		// Minify JS
 		new UglifyJsPlugin({
-			sourceMap: false
+			sourceMap: true
 		})
 	]
 });
