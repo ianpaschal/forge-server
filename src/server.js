@@ -6,9 +6,9 @@ import Path from "path";
 import SocketIO from "socket.io";
 import ConsoleStamp from "console-stamp";
 import engine from "./engine";
-import terrainSystem from "./systems/terrain";
-import productionSystem from "./systems/production";
-import movementSystem from "./systems/movement";
+import terrainSystem from "./engine/systems/terrain";
+import productionSystem from "./engine/systems/production";
+import movementSystem from "./engine/systems/movement";
 import * as commands from "./commands";
 
 ConsoleStamp( console, "yyyy-mm-dd HH:MM:ss" );
