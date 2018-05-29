@@ -1,6 +1,6 @@
 // Forge Server source code is distributed under the MIT license.
 
-import { Entity, Player, State } from "aurora";
+import { Entity, JSONLoader, Player, State } from "aurora";
 import HTTP from "http";
 import Path from "path";
 import SocketIO from "socket.io";
@@ -14,7 +14,6 @@ import * as commands from "./commands";
 ConsoleStamp( console, "yyyy-mm-dd HH:MM:ss" );
 
 // Set up:
-// const engine = new Engine();
 const server = HTTP.createServer();
 const stdin = process.openStdin();
 
@@ -26,21 +25,21 @@ const io = SocketIO( server, {
 
 // Config
 // TODO: Move to an external .json file
-const config = {
-	"pause-on-player-drop": false,
-	"port": 5000,
-	"plugin-stack": [ "heathlands" ]
-};
+let config;
+
+const configLoader = new JSONLoader;
+configLoader.load(
+	"./defaults.json",
+	( json ) => {
+		config = json;
+	},
+	() => {},
+	() => {}
+);
 
 /* Player sockets are not the same as player IDs. Each time a given player joins
 	they will have a different socket. */
 const playerSockets = [];
-const playerHashes = [
-	{
-		hash: "B54A95127A4B573F41E335FDBD339DCC2208FBFB1AE0B6FAB7599D6E2D6EC754",
-		name: "Ian"
-	}
-];
 
 // engine.pluginManager.addLocation( Path.resolve( "./plugins" ) );
 // engine.pluginManager.pluginStack = config[ "plugin-stack" ];
@@ -137,14 +136,14 @@ io.on( "connection", ( socket ) => {
 		},
 		register( uuid ) {
 			console.log( "Registered player" );
-			const player = playerHashes.find( ( item ) => {
+			const player = config.players.find( ( item ) => {
 				return item.hash === uuid;
 			});
 			if ( player ) {
 				console.log( "Welcome back " + player.name + "!" );
 			}
 			else {
-				playerHashes.push({
+				config.players.push({
 					name: "Thomas",
 					hash: uuid
 				});

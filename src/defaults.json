@@ -1,0 +1,14 @@
+{
+  "pause-on-player-drop": false,
+  "pause-on-player-quit": false,
+  "port": 5000,
+  "plugin-stack": [
+    "heathlands"
+  ],
+  "players": [
+    {
+      "hash": "B54A95127A4B573F41E335FDBD339DCC2208FBFB1AE0B6FAB7599D6E2D6EC754",
+      "name": "Ian"
+    }
+  ]
+}
