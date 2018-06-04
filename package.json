@@ -1,7 +1,37 @@
 {
   "name": "forge-server",
+  "productName": "Forge Server",
+  "title": "Forge Server",
   "version": "0.0.1",
   "description": "A real-time-strategy ECS sandbox, now in server form.",
+  "author": "Ian Paschal",
+  "license": "MIT",
+  "homepage": "https://github.com/ianpaschal/forge-server#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ianpaschal/forge-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ianpaschal/forge-server/issues"
+  },
+  "keywords": [
+    "entity-component-system",
+    "game-engine",
+    "javascript",
+    "node",
+    "nodejs",
+    "real-time-strategy",
+    "rts"
+  ],
+  "scripts": {
+    "dist": "./dist/server.bundle.js --out-path ./bin",
+    "docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
+    "lint": "eslint --fix",
+    "pack:dev": "NODE_ENV=development webpack --config webpack/dev.config.js",
+    "pack:prod": "NODE_ENV=production webpack --config webpack/prod.config.js",
+    "prestart": "NODE_ENV=development webpack --config webpack/dev.config.js",
+    "start": "node ./dist/server.bundle.js"
+  },
   "main": "./dist/server.bundle.min.js",
   "dependencies": {
     "console-stamp": "^0.2.6",
@@ -31,33 +61,5 @@
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^2.7.0",
     "webpack-merge": "^4.1.2"
-  },
-  "scripts": {
-    "prestart": "NODE_ENV=development webpack --config webpack/dev.config.js",
-    "start": "node ./dist/server.bundle.js",
-    "docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
-    "lint": "eslint --fix",
-    "pack:dev": "NODE_ENV=development webpack --config webpack/dev.config.js",
-    "pack:prod": "NODE_ENV=production webpack --config webpack/prod.config.js",
-    "dist": "./dist/server.bundle.js --out-path ./bin"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ianpaschal/forge-server.git"
-  },
-  "keywords": [
-    "entity-component-system",
-    "game-engine",
-    "javascript",
-    "node",
-    "nodejs",
-    "real-time-strategy",
-    "rts"
-  ],
-  "author": "Ian Paschal",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ianpaschal/forge-server/issues"
-  },
-  "homepage": "https://github.com/ianpaschal/forge-server#readme"
+  }
 }

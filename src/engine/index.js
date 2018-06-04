@@ -8,10 +8,6 @@ import movementSystem from "./systems/movement";
 
 const engine = new Engine();
 
-const config = {
-	"pause-on-player-drop": false,
-	"port": 5000,
-	"plugin-stack": [ "heathlands" ]
-};
+engine.pluginManager.addLocation( Path.resolve( "plugins" ) );
 
-engine.pluginManager.addLocation( Path.resolve( "../plugins" ) );
+export default engine;

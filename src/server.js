@@ -24,59 +24,48 @@ const io = SocketIO( server, {
 });
 
 // Config
-// TODO: Move to an external .json file
-let config;
-
 const configLoader = new JSONLoader;
-configLoader.load(
-	"./defaults.json",
-	( json ) => {
-		config = json;
-	},
-	() => {},
-	() => {}
-);
+const config = configLoader.loadSync( Path.resolve( "src", "defaults.json" ) );
 
 /* Player sockets are not the same as player IDs. Each time a given player joins
 	they will have a different socket. */
 const playerSockets = [];
 
-// engine.pluginManager.addLocation( Path.resolve( "./plugins" ) );
-// engine.pluginManager.pluginStack = config[ "plugin-stack" ];
-//
-// engine.loadAssets(
-// 	engine.pluginManager.stack,
-// 	( name ) => {
-// 		console.log( "Loaded " + name + "." );
-// 	},
-// 	() => {
-// 		// TODO: Check if world exists;
-// 		// engine.loadWorld();
-// 		// engine.generateWorld( () => {}, () => {
-// 		// 	engine.launch();
-// 		//
-// 		engine.registerSystem( terrainSystem );
-// 		engine.registerSystem( productionSystem );
-// 		engine.registerSystem( movementSystem );
-// 		engine.start();
-// 		server.listen( config.port, () => {
-// 			console.log( "Listening for connections on port " + config.port + "…" );
-// 		});
-// 	}
-// );
-//
-// /* Apply all saved user input for the tick before performing the update. */
-// engine.onUpdateStart = function() {
-// 	// console.log( "derp" );
-// };
-//
-// /* Send the last two computed states to clients. */
-// engine.onUpdateFinished = function() {
-// 	engine.stateManager.addState( new State( engine ) );
-// 	if ( engine.stateManager.numStates > 0 ) {
-// 		io.sockets.emit( "state", engine.stateManager.newestState );
-// 	}
-// };
+engine.pluginManager.pluginStack = config[ "plugin-stack" ];
+
+engine.loadAssets(
+	engine.pluginManager.stack,
+	( name ) => {
+		console.log( "Loaded " + name + "." );
+	},
+	() => {
+		// TODO: Check if world exists;
+		// engine.loadWorld();
+		// engine.generateWorld( () => {}, () => {
+		// 	engine.launch();
+		//
+		engine.registerSystem( terrainSystem );
+		engine.registerSystem( productionSystem );
+		engine.registerSystem( movementSystem );
+		engine.start();
+		server.listen( config.port, () => {
+			console.log( "Listening for connections on port " + config.port + "…" );
+		});
+	}
+);
+
+/* Apply all saved user input for the tick before performing the update. */
+engine.onUpdateStart = function() {
+	// console.log( "derp" );
+};
+
+/* Send the last two computed states to clients. */
+engine.onUpdateFinished = function() {
+	engine.stateManager.addState( new State( engine ) );
+	if ( engine.stateManager.numStates > 0 ) {
+		io.sockets.emit( "state", engine.stateManager.newestState );
+	}
+};
 
 // io.sockets.on( "connection", ( socket ) => {
 io.on( "connection", ( socket ) => {
@@ -148,9 +137,6 @@ io.on( "connection", ( socket ) => {
 					hash: uuid
 				});
 			}
-			// sockets.emit( "state", engine.getLastStates( 2 ) );
-			// TODO: Send stack:
-			// loadStack
 		}
 	};
 
@@ -168,39 +154,3 @@ stdin.on( "data", ( chunk ) => {
 	}
 	commands[ input ]();
 });
-
-engine.pluginManager.pluginStack = config[ "plugin-stack" ];
-
-engine.loadAssets(
-	engine.pluginManager.stack,
-	( name ) => {
-		console.log( "Loaded " + name + "." );
-	},
-	() => {
-		// TODO: Check if world exists;
-		// engine.loadWorld();
-		// engine.generateWorld( () => {}, () => {
-		// 	engine.launch();
-		//
-		engine.registerSystem( terrainSystem );
-		engine.registerSystem( productionSystem );
-		engine.registerSystem( movementSystem );
-		engine.start();
-		server.listen( config.port, () => {
-			console.log( "Listening for connections on port " + config.port + "…" );
-		});
-	}
-);
-
-/* Apply all saved user input for the tick before performing the update. */
-engine.onUpdateStart = function() {
-	// console.log( "derp" );
-};
-
-/* Send the last two computed states to clients. */
-engine.onUpdateFinished = function() {
-	engine.stateManager.addState( new State( engine ) );
-	if ( engine.stateManager.numStates > 0 ) {
-		io.sockets.emit( "state", engine.stateManager.newestState );
-	}
-};
